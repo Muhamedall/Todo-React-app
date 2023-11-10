@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Mylist from './Form&redux/Mylist';
-import { addItem, resetList, updateItem, deleteItem, editItem, loadData } from './Form&redux/action';
+import Mylist from './FormRedux/Mylist';
+import { addItem, resetList, updateItem, deleteItem, editItem, loadData } from './FormRedux/action';
 import axios from 'axios';
 
 function App() {
