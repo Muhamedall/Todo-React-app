@@ -8,7 +8,8 @@ function App() {
   const listValue = useSelector((state) => state.listValue);
   const editMode = useSelector((state) => state.editMode);
   const editIndex = useSelector((state) => state.editIndex);
-  const  refresh=useSelector((state)=>state.refresh)
+  const  refresh=useSelector((state)=>state.refresh);
+  
 
   const dispatch = useDispatch();
   const getItem = () => (dispatch) => {
@@ -18,41 +19,59 @@ function App() {
   .then((response) => {
     console.log('API Response:', response.data);
     dispatch(loadData(response.data)); // ==  dispatch({type:"LOAD_DATA",payload:response.data})
-    
+
   })
   .catch((error) => console.error("Error fetching data:", error));
 
   }
-  const deletItemApi =(  index)=>(dispatch)=>{
-    axios.delete('http://localhost:1337/api/stagaires/'+ index)
-  .then((response)=>{
-    dispatch({type:'REFRESH_DATA'})
-
-  })
-  .catch((error)=>{
-
-
-  })
-
-
-  }
-    
+  const deletItemApi = (index) => (dispatch) => {
+    //message confirmation 
+    axios.delete(`http://localhost:1337/api/stagaires/${index}`)
+      .then((response) => {
+        console.log("Axios api delete:", response);
+        dispatch({ type: 'REFRESH_DATA' });
+        dispatch(deleteItem(index));
+      })
+      .catch((error) => {
+        console.log("Error deleting item via API:", error);
+      });
+  };
+  const AddItemApi = (data) => {
+    return (dispatch) => {
+      axios
+        .post('http://localhost:1337/api/stagaires',{data:data} )
+        .then((response) => {
+          console.log('Axios API add:', response);
+          dispatch(addItem(data));
+         
+        })
+        .catch((error) => {
+          console.log('Error adding item via API:', error);
+        });
+    };
+  };
+  const UpdatItemApi = (data) => {
+    return (dispatch) => {
+      axios
+        .put(`http://localhost:1337/api/stagaires/${data.id}`, {data:data})
+        .then((response) => {
+          console.log('Axios API update:', response);
+          dispatch(updateItem(data));
+        })
+        .catch((error) => {
+          console.log('Error updating item via API:', error);
+        });
+    };
+  };
   
   
     
-
-    
-  
-
-
-  
-  
-
-  
 
   useEffect(() => {
+    console.log("This refresh :"+refresh)
     if( refresh===true){
       dispatch(getItem());
+
 
     }
    
@@ -61,24 +80,33 @@ function App() {
   console.log('Redux State:', listValue);
   const Name = useRef('');
   const Email = useRef('');
+  const stgid=useRef()
 
   const onDelete = (index) => {
+     if(window.confirm("Voullez vous vraiment  suprime  "+ index))
+
     dispatch(deletItemApi(index));
+    console.log("is deleted ")
+   
   };
 
   const onEdit = (index) => {
+    console.log(listValue[index])
     dispatch(editItem(index));
     const itemToEdit = listValue[index];
-    Name.current.value = itemToEdit.Name;
-    Email.current.value = itemToEdit.Email;
+    Name.current.value = itemToEdit.attributes.Name;
+    Email.current.value = itemToEdit.attributes.Email;
+    stgid.current=itemToEdit.attributes.id
   };
 
   const handleUpdate = () => {
     const nameRef = Name.current.value;
     const emailRef = Email.current.value;
+    const id=stgid.current
 
-    if (editMode && editIndex !== null) {
-      dispatch(updateItem({ Name: nameRef, Email: emailRef }));
+    if (editMode && editIndex !== null&& id) {
+      dispatch(UpdatItemApi({ Name: nameRef, Email: emailRef,id:id }));
+      console.log("Thi data ubdate :"+dispatch(UpdatItemApi({ Name: nameRef.Name, Email: emailRef.Email,id:id })))
       Name.current.value = '';
       Email.current.value = '';
     }
@@ -89,7 +117,7 @@ function App() {
     const nameRef = Name.current.value;
     const emailRef = Email.current.value;
 
-    dispatch(addItem({ Name: nameRef, Email: emailRef }));
+    dispatch(AddItemApi({ Name: nameRef, Email: emailRef }));
     Name.current.value = '';
     Email.current.value = '';
   };
