@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from 'react';
+
 import { useDispatch, useSelector } from 'react-redux';
 import Mylist from './FormRedux/Mylist';
 import { addItem, resetList, updateItem, deleteItem, editItem, loadData } from './FormRedux/action';
@@ -10,12 +11,12 @@ function App() {
   const editIndex = useSelector((state) => state.editIndex);
   const  refresh=useSelector((state)=>state.refresh);
   
-
+  
   const dispatch = useDispatch();
   const getItem = () => (dispatch) => {
    
     console.log("in getItem");
- axios.get('http://localhost:1337/api/stagaires')
+ axios.get('http://localhost:1337/api/stagaires/?populate=*')
   .then((response) => {
     console.log('API Response:', response.data);
     dispatch(loadData(response.data)); // ==  dispatch({type:"LOAD_DATA",payload:response.data})
@@ -51,9 +52,11 @@ function App() {
     };
   };
   const UpdatItemApi = (data) => {
-    return (dispatch) => {
-      axios
-        .put(`http://localhost:1337/api/stagaires/${data.id}`, {data:data})
+    const {Name,Email}=data
+    console.log("Test data "+ JSON.stringify(data))
+    return   (dispatch) => {
+        axios
+        .put(`http://localhost:1337/api/stagaires/${data.id}` ,{data: {Name:Name,Email:Email},headers:{'Content-Type':'application/json'}})
         .then((response) => {
           console.log('Axios API update:', response);
           dispatch(updateItem(data));
@@ -81,6 +84,7 @@ function App() {
   const Name = useRef('');
   const Email = useRef('');
   const stgid=useRef()
+  const searchInput =useRef();
 
   const onDelete = (index) => {
      if(window.confirm("Voullez vous vraiment  suprime  "+ index))
@@ -96,21 +100,24 @@ function App() {
     const itemToEdit = listValue[index];
     Name.current.value = itemToEdit.attributes.Name;
     Email.current.value = itemToEdit.attributes.Email;
-    stgid.current=itemToEdit.attributes.id
+    stgid.current=itemToEdit.id
   };
 
   const handleUpdate = () => {
     const nameRef = Name.current.value;
     const emailRef = Email.current.value;
-    const id=stgid.current
-
-    if (editMode && editIndex !== null&& id) {
-      dispatch(UpdatItemApi({ Name: nameRef, Email: emailRef,id:id }));
-      console.log("Thi data ubdate :"+dispatch(UpdatItemApi({ Name: nameRef.Name, Email: emailRef.Email,id:id })))
-      Name.current.value = '';
-      Email.current.value = '';
-    }
+    const id = stgid.current;
+    
+   // if (editMode && (editIndex !== null) && id) {
+      
+   
+      dispatch(UpdatItemApi({ Name: nameRef, Email: emailRef, id: id }))
+        Name.current.value = '';
+        Email.current.value = '';
+      
+   // }
   };
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -129,6 +136,9 @@ function App() {
     dispatch(resetList());
   };
 console.log("this list :" +listValue)
+
+
+
   return (
 
     <div>
@@ -141,7 +151,7 @@ console.log("this list :" +listValue)
             name="name"
             ref={Name}
           />
-        </div>
+        </div><br></br>
         <div>
           <label>Email:</label>
           <input
@@ -149,14 +159,15 @@ console.log("this list :" +listValue)
             name="email"
             ref={Email}
           />
-        </div>
-        <div>
+        </div><br></br>
+        <div className='Buttons_form'>
         <button type="submit" disabled={editMode}>Submit</button>
 
           <button type="reset" onClick={reset}>Cancel</button>
           <button onClick={handleUpdate} disabled={!editMode}>Update</button>
-        </div>
-      </form>
+        </div><br></br>
+     
+      </form><br></br>
 
       <Mylist listValue={listValue} onDelete={onDelete} onEdit={onEdit} />
     </div>
