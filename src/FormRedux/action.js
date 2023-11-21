@@ -1,4 +1,5 @@
 // actions.js
+//createur store 
 export const addItem = (item) => {
   return { type: 'ADD_ITEM', payload: item };
 };
@@ -7,8 +8,8 @@ export const deleteItem = (index) => {
   return { type: 'DELETE_ITEM', payload: index };
 };
 
-export const editItem = (index) => {
-  return { type: 'EDIT_ITEM', payload: index };
+export const editItem = (index,id) => {
+  return { type: 'EDIT_ITEM', payload: {index:index,id:id}  };
 };
 
 export const updateItem = (item) => {
@@ -22,4 +23,8 @@ export const resetList = () => {
 export const loadData = (data) => {
   console.log('Action Payload:', data);
   return { type: 'LOAD_DATA', payload: data };
+};
+export const search = (data) => {
+ 
+  return { type: 'SEARCH', payload: data };
 };

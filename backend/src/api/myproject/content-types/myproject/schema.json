@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "stagaires",
+  "collectionName": "myprojects",
   "info": {
-    "singularName": "stagaire",
-    "pluralName": "stagaires",
-    "displayName": "Stagaire",
+    "singularName": "myproject",
+    "pluralName": "myprojects",
+    "displayName": "Myproject",
     "description": ""
   },
   "options": {
@@ -12,20 +12,19 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "Email": {
-      "type": "string",
-      "required": true
-    },
     "Name": {
       "type": "string",
       "required": true
     },
-    "image": {
+    "picture": {
       "type": "media",
       "multiple": false,
-      "required": false,
+      "required": true,
       "allowedTypes": [
-        "images"
+        "images",
+        "files",
+        "videos",
+        "audios"
       ]
     }
   }

@@ -41,3 +41,47 @@
   gap: 15%;
   margin-top: 5%;
 }
+.Table_User{
+  background-color:  #f1f5f9;
+  color: #020617;
+ 
+}
+button{
+  background-color: #334155;
+  color: #f8fafc;
+  border-radius: 10%;
+
+}
+.Buttons_form {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+
+  
+
+
+}
+.Buttons_form button{
+  background-color: #334155;
+  color: #f8fafc;
+  border-radius: 10%;
+
+}
+
+.Table_User button{
+  background-color: #334155;
+  color: #f8fafc;
+   border-radius: 10%;
+
+}
+.Table_User th ,td{
+  
+  text-align: center;
+ 
+  
+}
+.Table_User img:hover{
+  transform: scale(1.1);
+
+
+}

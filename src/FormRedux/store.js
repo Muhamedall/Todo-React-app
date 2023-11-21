@@ -6,15 +6,18 @@ const initialState = {
   listValue: [],
   editMode: false,
   editIndex: null,
-  refresh: true
+  refresh: true,
+  isloading:true
 };
-//principe valeur agile && defin sprean && methode agile clasic && partie pronom 
+
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'ADD_ITEM':
       return {
         ...state,
-        listValue: Array.isArray(state.listValue) ? [...state.listValue, action.payload] : [action.payload],
+        //listValue: Array.isArray(state.listValue) ? [...state.listValue, action.payload] : [action.payload],
+    refresh:true,
+    isloading:true
 
       };
     case 'DELETE_ITEM':
@@ -29,14 +32,17 @@ const rootReducer = (state = initialState, action) => {
         editIndex: action.payload,
       };
     case 'UPDATE_ITEM':
-      const updatedList = [...state.listValue];
+      
 
-      updatedList[state.editIndex] = action.payload;
+      
       return {
         ...state,
-        listValue: updatedList,
+        
         editMode: false,
         editIndex: null,
+        refresh:true,
+        isloading:true
+       
       };
     case 'RESET_LIST':
       return {
@@ -50,7 +56,10 @@ const rootReducer = (state = initialState, action) => {
     ...state,
 
     listValue:[...action.payload.data],
-    refresh:false
+    refresh:false,
+    isloading:false,
+
+  
     
     
   };
@@ -59,6 +68,12 @@ const rootReducer = (state = initialState, action) => {
     ...state,
     refresh:true
    };
+
+   case 'SEARCH':
+    return{
+      ...state,
+      listValue:state.listValue.filter((item)=>item.attributes.Name.toLowerCase().includes(action.payload.toLowerCase()))
+    }
   
 
     default:
