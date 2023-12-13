@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+/*import React, { useRef, useEffect } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import { useDispatch, useSelector } from 'react-redux';
 import Mylist from './FormRedux/Mylist';
@@ -196,4 +196,60 @@ const handelSearch = (e) => {
   );
 }
 
-export default App;
+export default App;*/
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Header from './components/Header';
+import ListStagaires from './components/ListStagaires';
+import AddStagaires from './components/AddStagaires';
+import DetailStagiaire from "./components/DetaillesStagaires";
+function App() {
+  return(
+    <>
+    <BrowserRouter>
+  <Header/> 
+        <Routes>
+            <Route>
+                <Route path="/" element={<Header  />}/>
+
+                <Route index element={<  ListStagaires />}/>
+                <Route path="ListStagaires" element={<ListStagaires/>}/>
+                <Route path="AddStagaires" element={<AddStagaires/>}/>
+                <Route path="/detail/:stagairesNom" element={<DetailStagiaire/>}/>
+                
+
+
+
+
+
+            </Route>
+
+
+
+
+        </Routes>
+        
+        
+        
+        
+        </BrowserRouter>
+
+
+
+    </>
+  )
+
+}
+  export default App;
+/*import Counter from "./feauters/counter/counter";
+  function App() {
+    return(
+    
+    
+    <>
+    <Counter/>
+
+    </>
+    
+    
+    )}
+    export default App;*/
