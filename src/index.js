@@ -17,17 +17,17 @@ rootElement
 */
 import ReactDOM from "react-dom/client";
 import App from './App';
-import {Provider} from 'react-redux';
+//import {Provider} from 'react-redux';
 
-import { configureStore } from "@reduxjs/toolkit";
-import userReducer from './components/StagairesSlice'
+//import { configureStore } from "@reduxjs/toolkit";
+//import userReducer from './components/StagairesSlice'
 const root=ReactDOM.createRoot(document.getElementById("root"));
-const store=configureStore({
-reducer:{stagiaires:userReducer}
-})
+//const store=configureStore({
+//reducer:{stagiaires:userReducer}
+//})
 root.render(<>
-    <Provider store={store}>
+   
     <App/>
-    </Provider>
+  
     </>)
     

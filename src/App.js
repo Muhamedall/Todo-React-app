@@ -197,11 +197,13 @@ const handelSearch = (e) => {
 }
 
 export default App;*/
+/*
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from './components/Header';
 import ListStagaires from './components/ListStagaires';
 import AddStagaires from './components/AddStagaires';
 import DetailStagiaire from "./components/DetaillesStagaires";
+import StagiaireAPI from "./components/StagairApi";
 function App() {
   return(
     <>
@@ -215,6 +217,7 @@ function App() {
                 <Route path="ListStagaires" element={<ListStagaires/>}/>
                 <Route path="AddStagaires" element={<AddStagaires/>}/>
                 <Route path="/detail/:stagairesNom" element={<DetailStagiaire/>}/>
+                <Route path="StagiaireAPI" element={<StagiaireAPI/>}/>
                 
 
 
@@ -239,7 +242,7 @@ function App() {
   )
 
 }
-  export default App;
+  export default App;*/
 /*import Counter from "./feauters/counter/counter";
   function App() {
     return(
@@ -253,3 +256,17 @@ function App() {
     
     )}
     export default App;*/
+   
+  import TodoGeneral from "./ToDoListProject/Todogeneral";
+      function App() {
+        return(
+        
+        
+        <>
+     
+    <TodoGeneral/>
+        </>
+        
+        
+        )}
+        export default App;
