@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/ForRedux/static/css/main.dcc4e1c7.css",
+    "main.js": "/ForRedux/static/js/main.c410f4eb.js",
+    "index.html": "/ForRedux/index.html",
+    "main.dcc4e1c7.css.map": "/ForRedux/static/css/main.dcc4e1c7.css.map",
+    "main.c410f4eb.js.map": "/ForRedux/static/js/main.c410f4eb.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.dcc4e1c7.css",
+    "static/js/main.c410f4eb.js"
+  ]
+}
